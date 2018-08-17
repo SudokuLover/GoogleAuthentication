@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
     SignInButton signInButton;
     GoogleApiClient googleApiClient;
-    FirebaseAuth firebaseAuth;
+    FirebaseAuth firebaseAuth=null;
     FirebaseAuth.AuthStateListener authStateListener;
     Intent intent1;
     @Override
@@ -59,32 +59,39 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
     authStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
+        /*        FirebaseUser user = firebaseAuth.getCurrentUser();
                 if(user!=null)
                 {
-                    //Toast.makeText(MainActivity.this, ""+2 , Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, ""+2 , Toast.LENGTH_SHORT).show();
                     //Intent intent = new Intent(MainActivity.this,Main2Activity.class);
                     //startActivity(intent);
                    // finish();
+
                 }
-            }
+        */    }
         };
 
-        if(authStateListener !=null)
-        {
-            Intent intent = new Intent(MainActivity.this,Main2Activity.class);
-            startActivity(intent);
-             finish();
-
-        }
 
 
          firebaseAuth.addAuthStateListener(authStateListener);
-}
+
+
+        if(authStateListener !=null)
+        {
+            FirebaseUser user = firebaseAuth.getCurrentUser();
+            if(user!=null) {
+                Toast.makeText(MainActivity.this, ""+3 , Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(MainActivity.this, Main2Activity.class);
+                startActivity(intent);
+                finish();
+            }
+        }
+
+    }
 
 
 
@@ -137,5 +144,9 @@ public class MainActivity extends AppCompatActivity {
     public GoogleApiClient getGoogleApiClient(){
 
         return googleApiClient;
+    }
+    public FirebaseAuth.AuthStateListener authStateListener(){
+
+        return authStateListener;
     }
 }

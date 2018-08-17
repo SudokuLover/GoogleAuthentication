@@ -32,28 +32,34 @@ public class Main2Activity extends AppCompatActivity {
         final TextView textView2= (TextView) findViewById(R.id.textView2);
         Button btn = (Button) findViewById(R.id.button2);
 
-        authStateListener = new FirebaseAuth.AuthStateListener() {
+        authStateListener = new MainActivity().authStateListener();
+
+                /*new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
 
                 if(user!=null)
                 {
-                    if(user.getDisplayName()!=null)
-                    {
-
-                        String k = user.getDisplayName().toString();
+                       String k = user.getDisplayName().toString();
                         String k1= user.getEmail().toString();
                         Toast.makeText(Main2Activity.this, k+"\n"+k1, Toast.LENGTH_SHORT).show();
                         textView.setText(k);
                         textView2.setText(k1);
 
-                    }
                 }
             }
         };
 
-
+*/
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+        if(user!=null) {
+            String k = user.getDisplayName().toString();
+            String k1= user.getEmail().toString();
+            Toast.makeText(Main2Activity.this, k+"\n"+k1, Toast.LENGTH_SHORT).show();
+            textView.setText(k);
+            textView2.setText(k1);
+        }
 
 
         btn.setOnClickListener(new View.OnClickListener() {
